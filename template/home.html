@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="products-catagories-area clearfix">
+        <div class="amado-pro-catagory clearfix">
+            {% for i in obj %}
+            <!-- Single Catagory -->
+            <div class="single-products-catagory clearfix">
+                <a href="{% url 'product' i.pk %}">
+                    <img src="media/{{i.photo1}}" alt="">
+                    <!-- Hover Content -->
+                    <div class="hover-content">
+                        <div class="line"></div>
+                        <p>From {{i.price}}</p>
+                        <h4>{{i.title}}</h4>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            
+            
+        </div>
+    </div> 
+{% endblock content %}
