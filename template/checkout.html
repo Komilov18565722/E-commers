@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+       
+        <a href="{% url 'product' obj.pk %}"><button type="submit" name="addtocart" value="5" class="btn amado-btn">Back</button></a>
+           
+            <div class="col-8 col-lg-6" style="margin-left: 25%;">
+                <div class="cart-summary">
+                    
+                    <h5>{{obj.title}}</h5>
+                    <ul class="summary-table">
+                        <li><span>subtotal: </span> <span>{{obj.price}} sum</span></li>
+                        <li><span>delivery: </span> <span>{% if obj.delivery_price  == 0 %} Free {%else %} {{obj.delivery_price}} sum {% endif %} </span></li>
+                        <li><span>total:</span> <span> {{ obj.price }} + {{ obj.delivery_price }} sum</span></li>
+                    </ul>
+
+                    
+                    <div class="cart-btn mt-100">
+                        <a href="{% url 'buy' obj.pk %}" class="btn amado-btn w-100">Buy</a>
+                    </div>
+                </div>
+            </div>
+       
+    </div>
+</div>
+{% endblock content %}

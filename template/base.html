@@ -107,7 +107,7 @@
 
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <!-- <li><a href="{ url 'product' %}">Product</a></li>                     -->
-                    <li><a href="checkout.html">Checkout</a></li>
+                    <li><a href="{% url 'user_purchases' %}">My purchases</a></li>
                     {% if user.is_authenticated and user.is_superuser %}
                         <li><a href="{%url 'add_product'%}">Add Product</a></li>   
                     {% endif %}
@@ -155,7 +155,7 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="{% url 'home' %}"><img src="{% static 'img/core-img/logo2.png' %}" alt=""></a>
+                            <a href="{% url 'home'  %}"><img src="{% static 'img/core-img/logo2.png' %}" alt=""></a>
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite">
@@ -175,13 +175,10 @@
                                 <div class="collapse navbar-collapse" id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item active">
-                                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                                            <a class="nav-link" href="{% url 'home'  %}">Home</a>
                                         </li>                                    
                                         <li class="nav-item">
-                                            <a class="nav-link" href="product-details.html">Product</a>
-                                        </li>                                        
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="checkout.html">Checkout</a>
+                                            <a class="nav-link" href="{% url 'user_purchases' %}">My purchases</a>
                                         </li>
                                     </ul>
                                 </div>

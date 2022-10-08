@@ -1,6 +1,5 @@
 from django.db import models
-from django.forms import CharField
-
+from accounts.models import CustomUser
 # Create your models here.
 
 class Product (models.Model):
@@ -14,6 +13,7 @@ class Product (models.Model):
     price = models.FloatField(default = 0.00)
     count = models.PositiveIntegerField(default = 1)
     delivery_price = models.FloatField(default = 0.00)
+    users = models.ManyToManyField(CustomUser)
 
     def __str__(self):
         return self.title

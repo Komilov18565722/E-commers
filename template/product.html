@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-12 col-lg-7">
                     <div class="single_product_thumb" >
-                        <h3>{{obj.title}}</h3>
+                        <h3> {{obj.title}} </h3>
                         <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 
@@ -66,9 +66,10 @@
                     </div>
                     <br>
                     <!--Buy -->
-                    <form class="cart clearfix" method="post">
-                        <button type="submit" name="buy" value="1" class="btn amado-btn">Buy</button>
-                    </form>
+                    <!-- <form class="cart clearfix" method="post"> -->
+                        <a href="{% url 'checkout' obj.pk %}"><button name="buy" class="btn amado-btn">Buy</button></a>
+                        <a href=""><button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button></a>
+                        <!-- </form> -->
                 
                 </div>
 
@@ -90,18 +91,10 @@
                         </div>
 
                         <!-- Add to Cart Form -->
-                        <form class="cart clearfix" method="post">
-                            <div class="cart-btn d-flex mb-50">
-                                <p>Count</p>
-                                <div class="quantity">
-                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
-                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( qyt > 1) effect.value-1; return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-
-                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; effect.value++; return false; "><i class="fa fa-caret-up" aria-hidden="true"></i></span>
-                                </div>
-                            </div>
-                            <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
-                        </form>
+                        <!-- <form class="cart clearfix" method="post"> -->
+                            
+                            
+                        <!-- </form> -->
                             
                         
 
