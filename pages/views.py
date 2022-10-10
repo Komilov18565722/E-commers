@@ -1,14 +1,34 @@
 from django.shortcuts import render, redirect
-from accounts.models import CustomUser
 from products.models import Product
+from django.contrib import messages
+from django.db.models import Q
 
 # Create your views here.
 
 def home(request):
-    print(0000000000000000000000000000000,type(Product.objects.order_by('-title')[:]))
-    context_1 = {
-        "obj": Product.objects.order_by('-title')[:],
-    }
+    # print(1111111111111111111111111111111111, text)
+    
+    if  request.GET.get('text') :
+
+        query_text = request.GET['text']
+
+        context_1 = {
+            "obj": Product.objects.filter(Q(title__contains=query_text) |
+                                            Q(bio__contains=query_text) |
+                                            Q(definition__contains=query_text) |
+                                            Q(price__contains=query_text) |
+                                            Q(count__contains=query_text) |
+                                            Q(delivery_price__contains=query_text) |
+                                            Q(users__username__contains=query_text) |
+                                            Q(users__first_name__contains=query_text) |
+                                            Q(users__last_name__contains=query_text)
+
+                                            ),
+        }
+    else:
+        context_1 = {
+            "obj": Product.objects.order_by('-title')[:],
+        }
     return render(request, template_name='home.html', context = context_1 )
 
 
@@ -21,10 +41,14 @@ def product(request, pk = None):
         return redirect('home')
 
 def buy(request, pk = None):
-    user = request.user
-    product_obj = Product.objects.filter(id = pk)[0]
-    product_obj.users.add(user)
-    return home(request)
+    if request.user.is_authenticated:
+        user = request.user
+        product_obj = Product.objects.filter(id = pk)[0]
+        product_obj.users.add(user)
+        return home(request)
+    else:    
+        messages.warning(request, ("You must login before purchasing an item"))
+        return redirect('/accounts/login/?next=%s' % request.path)
 
 def checkout(request, pk = None):
     if pk:
@@ -34,16 +58,23 @@ def checkout(request, pk = None):
         return redirect('home')
 
 def user_purchases(request):
-    user_id = request.user.pk
-    objs = []
-    for item in Product.objects.filter():
-        if item.users.filter(id = user_id):
-            objs.append(item)
-    obj = Product.objects.filter()
-        
-        # obj.pop(obj.index(item))
-
-    print(22222222222222222222222222222222222222222222222222, obj)
-    # for i in obj:
-    #     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', i)
-    return render(request, template_name="home.html", context ={ "obj" : obj } )
+    
+    if request.user.is_authenticated:
+        if request.GET.get('text'):
+            query_text = request.GET.get('text')
+            obj = Product.objects.filter(users = request.user ).filter(
+                                        Q(title__contains=query_text) |
+                                        Q(definition__contains=query_text) |
+                                        Q(price__contains=query_text) |
+                                        Q(count__contains=query_text) |
+                                        Q(delivery_price__contains=query_text) |
+                                        Q(users__username__contains=query_text) |
+                                        Q(users__first_name__contains=query_text) |
+                                        Q(users__last_name__contains=query_text)
+                                        )    
+        else:
+            obj = Product.objects.filter(users = request.user )
+        return render(request, template_name="home.html", context ={ "obj" : obj } )
+    else:
+        messages.warning(request, ("You must login before purchasing an item"))
+        return redirect('/accounts/login/?next=%s' % request.path)

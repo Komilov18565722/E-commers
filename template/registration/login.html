@@ -32,14 +32,28 @@
         
         <div class="form-container sign-in-container">
             <form method="post"> {% csrf_token %}
-                {% if messages %}
-                {% for message in messages %}
-                
-                    <p style="padding: 3%; text-align: center; background-color: rgb(218, 160, 160);"><b> {{ message }} </b></p>
-                    
-                {% endfor %}
-                {% endif %}
 
+
+                {% if messages%}
+    
+                    {% for message in messages %}
+                    
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %} 
+                
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <p style="padding: 3%; text-align: center; background-color: rgb(218, 160, 160);"><b> {{ message }} </b></p>
+                    </div>
+
+                    {%else%}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <p style="margin: 0% 20%;" ><strong> </strong> {{message}}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+        
                 <h1>Sign in</h1>
                 <!-- <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>

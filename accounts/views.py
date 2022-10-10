@@ -32,9 +32,9 @@ def login_user(request):
             
             except:
                 if username and password and fname and lname and email:
-                    messages.success(request, ("This Username is already registered"))
+                    messages.warning(request, ("This Username is already registered"))
                 else:
-                    messages.success(request, ("The information is incomplete"))
+                    messages.warning(request, ("The information is incomplete"))
                 return redirect('login')
 
             
@@ -46,7 +46,7 @@ def login_user(request):
                 messages.success(request, ("Success login!"))
                 return redirect('home')
             else:
-                messages.success(request, ("Your Password or Username faild"))
+                messages.warning(request, ("Your Password or Username faild"))
                 return redirect('login')
     else:
         return render(request, 'registration/login.html')

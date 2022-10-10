@@ -15,6 +15,8 @@ class Product (models.Model):
     delivery_price = models.FloatField(default = 0.00)
     users = models.ManyToManyField(CustomUser)
 
+
+
     def __str__(self):
         return self.title
 
