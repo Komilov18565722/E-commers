@@ -67,8 +67,16 @@
                     <br>
                     <!--Buy -->
                     <!-- <form class="cart clearfix" method="post"> -->
+                    {% if user.is_authenticated %}
+                        
                         <a href="{% url 'checkout' obj.pk %}"><button name="buy" class="btn amado-btn">Buy</button></a>
-                        <a href=""><button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button></a>
+                        {% if user.is_superuser %}
+                            <a href="{% url 'delete' obj.pk %}"><button name="delete" class="btn amado-btn">Delete</button></a>
+                            <a href="{% url 'update' obj.pk %}"><button name="update" class="btn amado-btn">Update</button></a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}"><button name="login" class="btn amado-btn">Login</button></a>
+                    {% endif %}
                         <!-- </form> -->
                 
                 </div>

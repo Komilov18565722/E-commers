@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Update Product</title>
+    <style>
+        div, button{
+            margin: 3%;
+        }
+        textarea{
+            height: 150px;
+        }
+        h1{
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class ="container">
+        <h1>Update Product</h1>
+        <form method="post" enctype='multipart/form-data'> {% csrf_token%}
+            <!-- Title -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+                <input value="{{obj.title}}" name = "title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+
+            <!-- Bio max length 300 -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Bio</span>
+                <input value="{{obj.bio}}" name = "bio" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            
+            <!-- def -->
+            <div class="input-group">
+                <span class="input-group-text">Deffinition max length 300</span>
+                <textarea value="{{obj.definition}}" name = "deff" class="form-control" aria-label="With textarea"></textarea>
+            </div>
+            
+            <!-- Price -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Price</span>
+                <input value="{{obj.price}}" name = "price" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+
+            <!-- Count -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Count</span>
+                <input value="{{obj.count}}" name = "count" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+
+            <!-- Delivery price -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Delivery price</span>
+                <input value="{{obj.delivery_price}}" name = "dprice" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+
+
+            <!-- Photo 1 -->
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Choose photo</label>
+                <input value="{{obj.photo1}}" name = "photo1" class="form-control" type="file" id="formFileMultiple" multiple>
+            </div>
+
+            <!-- Photo 2 -->
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Choose photo</label>
+                <input value="{{obj.photo2}}" name = "photo2" class="form-control" type="file" id="formFileMultiple" multiple>
+            </div>
+
+            <!-- Photo 3 -->
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Choose photo</label>
+                <input value="{{obj.photo3}}" name = "photo3" class="form-control" type="file" id="formFileMultiple" multiple>
+            </div>
+
+            <!-- Photo 4 -->
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Choose photo</label>
+                <input value="{{obj.photo4}}" name = "photo4" class="form-control" type="file" id="formFileMultiple" multiple>
+            </div>
+            <button class="btn btn-success" type="submit">Save</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -11,11 +11,24 @@
                     
                     <h5>{{obj.title}}</h5>
                     <ul class="summary-table">
-                        <li><span>subtotal: </span> <span>{{obj.price}} sum</span></li>
-                        <li><span>delivery: </span> <span>{% if obj.delivery_price  == 0 %} Free {%else %} {{obj.delivery_price}} sum {% endif %} </span></li>
-                        <li><span>total:</span> <span> {{ obj.price }} + {{ obj.delivery_price }} sum</span></li>
+                        <li><span>subtotal: </span> <span><span id="price"> {{obj.price}}</span> sum</span></li>
+                        <li><span>delivery: </span> <span>{% if obj.delivery_price  == 0 %} Free {%else %} <span id="delivery_price12">{{obj.delivery_price}} </span> sum {% endif %} </span></li>
+                        <li><span>total:</span> <span><span id="all_price" >  </span> sum</span></li>
                     </ul>
+                    <script>
+                        function foo(a,b){
+                            const allprice = document.getElementById("all_price");
+                            // allprice.textContent = "salom";
 
+                            const price = document.getElementById("price");
+                            
+                            const del_price = document.getElementById("delivery_price12");
+                            console.log("del price ", del_price.textContent);
+                            allprice.textContent = 1*price.textContent + 1*del_price.textContent;
+                        }
+
+                        foo();
+                    </script>  
                     
                     <div class="cart-btn mt-100">
                         <a href="{% url 'buy' obj.pk %}" class="btn amado-btn w-100">Buy</a>
