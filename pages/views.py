@@ -44,9 +44,9 @@ def buy(request, pk = None):
     if request.user.is_authenticated:
         user = request.user
         product_obj = Product.objects.filter(id = pk)[0]
-        product_obj.users.add(user)
+        product_obj.users = user
         product_obj.count = product_obj.count - 1
-        if product_obj.count < 0 :
+        if product_obj.count > 0 :
             product_obj.save()
         else:
             return delete_product(request, pk)

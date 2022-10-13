@@ -2,6 +2,7 @@ import re
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from accounts.accountsForm import AccountsForm
 from accounts.models import CustomUser
 # Create your views here.
 
@@ -10,34 +11,15 @@ def login_user(request):
         username = request.POST['username']
         password = request.POST['password']
         if request.POST.get('email'):
-            fname = request.POST['fname']
-            lname = request.POST['lname']
-            email = request.POST['email']
-            number = request.POST['phone']
-            age = request.POST['age']
-            try:
-                
-
-                user = CustomUser.objects.create_user( username = username,
-                                            first_name=fname,
-                                            last_name=lname,
-                                            email=email,
-                                            phone_number=number, 
-                                            age = age, 
-                                            password=password
-                )
+            user = AccountsForm(request.POST)
+            if user.is_valid():
+                user = user.save(commit = False)
                 user.save()
                 login(request, user)
                 return redirect('home')
-            
-            except:
-                if username and password and fname and lname and email:
-                    messages.warning(request, ("This Username is already registered"))
-                else:
-                    messages.warning(request, ("The information is incomplete"))
-                return redirect('login')
-
-            
+            else:
+                print('0000000000000000000000000000000000000000000000')
+                return redirect('login')   
         else:
             user = authenticate(request, username = username, password = password)
 
