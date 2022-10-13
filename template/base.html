@@ -101,8 +101,10 @@
 
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <!-- <li><a href="{ url 'product' %}">Product</a></li>                     -->
-                    {% if user.is_authenticated and user.is_superuser %}
+                    {% if user.is_authenticated %}
                         <li><a href="{% url 'user_purchases' %}">My purchases</a></li>
+                    {% endif %}
+                    {% if user.is_authenticated and user.is_superuser %}
 
                         <li><a href="{%url 'add_product'%}">Add Product</a></li>   
                     {% endif %}
