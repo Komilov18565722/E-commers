@@ -12,7 +12,7 @@
                     <h5>{{obj.title}}</h5>
                     <ul class="summary-table">
                         <li><span>subtotal: </span> <span><span id="price"> {{obj.price}}</span> sum</span></li>
-                        <li><span>delivery: </span> <span>{% if obj.delivery_price  == 0 %} Free {%else %} <span id="delivery_price12">{{obj.delivery_price}} </span> sum {% endif %} </span></li>
+                        <li><span>delivery: </span><span><span id="delivery_price12">{% if obj.delivery_price  == 0 %} Free {%else %} {{obj.delivery_price}} </span> sum {% endif %} </span></li>
                         <li><span>total:</span> <span><span id="all_price" >  </span> sum</span></li>
                     </ul>
                     <script>
@@ -24,7 +24,12 @@
                             
                             const del_price = document.getElementById("delivery_price12");
                             console.log("del price ", del_price.textContent);
-                            allprice.textContent = 1*price.textContent + 1*del_price.textContent;
+                            if (1*del_price.textContent){
+                                allprice.textContent = 1*price.textContent + 1*del_price.textContent;
+                            } else{
+                                allprice.textContent = 1*price.textContent;
+
+                            }
                         }
 
                         foo();

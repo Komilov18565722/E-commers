@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from products.models import Product
 from django.contrib import messages
 from django.db.models import Q
-
+from products.views import delete_product
 # Create your views here.
 
 def home(request):
@@ -45,8 +45,13 @@ def buy(request, pk = None):
         user = request.user
         product_obj = Product.objects.filter(id = pk)[0]
         product_obj.users.add(user)
+        product_obj.count = product_obj.count - 1
+        if product_obj.count < 0 :
+            product_obj.save()
+        else:
+            return delete_product(request, pk)
         return home(request)
-    else:    
+    else:
         messages.warning(request, ("You must login before purchasing an item"))
         return redirect('/accounts/login/?next=%s' % request.path)
 
