@@ -67,16 +67,7 @@
                     <br>
                     <!--Buy -->
                     <!-- <form class="cart clearfix" method="post"> -->
-                    {% if user.is_authenticated %}
-                        
-                        <a href="{% url 'checkout' obj.pk %}"><button name="buy" class="btn amado-btn">Buy</button></a>
-                        {% if user.is_superuser %}
-                            <a href="{% url 'delete' obj.pk %}"><button name="delete" class="btn amado-btn">Delete</button></a>
-                            <a href="{% url 'update' obj.pk %}"><button name="update" class="btn amado-btn">Update</button></a>
-                        {% endif %}
-                    {% else %}
-                        <a href="{% url 'login' %}"><button name="login" class="btn amado-btn">Login</button></a>
-                    {% endif %}
+                    
                         <!-- </form> -->
                 
                 </div>
@@ -108,6 +99,21 @@
 
                     </div>
                 </div>
+                {% if user.is_authenticated %}
+                        
+                        <a href="{% url 'checkout' obj.pk %}"><button name="buy" class="btn amado-btn">Buy</button></a>
+                        {% if obj.card == 1 %}
+                            <a href="{% url 'product' obj.pk 2 %}"><button name="card" class="btn amado-btn">Remove Card</button></a>
+                        {% else %}
+                            <a href="{% url 'product' obj.pk 1 %}"><button name="card" class="btn amado-btn">Add Card</button></a>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <a href="{% url 'delete' obj.pk %}"><button name="delete" class="btn amado-btn">Delete</button></a>
+                            <a href="{% url 'update' obj.pk %}"><button name="update" class="btn amado-btn">Update</button></a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}"><button name="login" class="btn amado-btn">Login</button></a>
+                    {% endif %}
             </div>
         </div>
     </div>

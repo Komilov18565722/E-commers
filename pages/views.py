@@ -5,9 +5,7 @@ from django.db.models import Q
 from products.views import delete_product
 # Create your views here.
 
-def home(request):
-    # print(1111111111111111111111111111111111, text)
-    
+def home(request):    
     if  request.GET.get('text') :
 
         query_text = request.GET['text']
@@ -32,10 +30,23 @@ def home(request):
     return render(request, template_name='home.html', context = context_1 )
 
 
-def product(request, pk = None):
-    if pk:
+def product(request, pk = None, card = None):
+    if card and pk:
+        user = request.user
+        product_obj = Product.objects.filter(id = pk)[0]
+        product_obj.users = user
+        product_obj.save()
+
         obj = Product.objects.filter(id = pk)[0]
-        return render(request, template_name="product.html", context ={"obj":obj} )
+        if card == 1:          
+            obj.card = 1
+        elif card == 2:
+            obj.card = 0
+        obj.save()
+        return render(request, template_name="product.html", context ={"obj" : obj} )
+    elif pk:
+        obj = Product.objects.filter(id = pk)[0]
+        return render(request, template_name="product.html", context ={"obj" : obj} )
 
     else:
         return redirect('home')
@@ -46,6 +57,7 @@ def buy(request, pk = None):
         product_obj = Product.objects.filter(id = pk)[0]
         product_obj.users = user
         product_obj.count = product_obj.count - 1
+        product_obj.buy = 1
         if product_obj.count > 0 :
             product_obj.save()
         else:
@@ -62,7 +74,7 @@ def checkout(request, pk = None):
     else:
         return redirect('home')
 
-def user_purchases(request):
+def user_purchases(request, card = None):
     
     if request.user.is_authenticated:
         if request.GET.get('text'):
@@ -78,7 +90,10 @@ def user_purchases(request):
                                         Q(users__last_name__contains=query_text)
                                         )    
         else:
-            obj = Product.objects.filter(users = request.user )
+            if card:
+                obj = Product.objects.filter(users = request.user ).filter(card = 1)
+            else:
+                obj = Product.objects.filter(users = request.user ).filter(buy = 1)
         return render(request, template_name="home.html", context ={ "obj" : obj } )
     else:
         messages.warning(request, ("You must login before purchasing an item"))

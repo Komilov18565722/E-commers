@@ -5,7 +5,6 @@ from .productForm import ProductForm
 # Create your views here.
 
 def add_prodect(request):
-    print("11111111111111111111111111111", request.POST)
     if request.user.is_superuser:
         
         if request.method == "POST":

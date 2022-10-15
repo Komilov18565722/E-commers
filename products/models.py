@@ -1,3 +1,4 @@
+from itertools import product
 from django.db import models
 from accounts.models import CustomUser
 # Create your models here.
@@ -14,8 +15,9 @@ class Product (models.Model):
     count = models.PositiveIntegerField(default = 1)
     delivery_price = models.FloatField(default = 0.00)
     users = models.ForeignKey(CustomUser, on_delete = models.CASCADE, null = True, blank = True)
+    card = models.BooleanField(default = 0)
+    buy =  models.BooleanField(default = 0)
     
     def __str__(self):
         return self.title
 
-    

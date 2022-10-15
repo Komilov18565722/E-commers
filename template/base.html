@@ -103,6 +103,7 @@
                     <!-- <li><a href="{ url 'product' %}">Product</a></li>                     -->
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'user_purchases' %}">My purchases</a></li>
+                        
                     {% endif %}
                     {% if user.is_authenticated and user.is_superuser %}
 
@@ -113,7 +114,8 @@
             <br><br><br><br>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <!-- <a href="cart.html" class="cart-nav"><img src="{% static 'img/core-img/cart.png' %}" alt=""> Cart <span>(0)</span></a>
+                <a href="{% url 'user_purchases' 1 %}" class="cart-nav"><img src="{% static 'img/core-img/cart.png' %}" alt=""> Card </a>
+                <!--
                 <a href="#" class="fav-nav"><img src="{% static 'img/core-img/favorites.png' %}" alt=""> Favourite</a> -->
                 <a href="#" class="search-nav"><img src="{% static 'img/core-img/search.png' %}" alt=""> Search</a>
             </div>
